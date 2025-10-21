@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="style.css">
+<title>Activity3</title>
+</head>
+<body>
+<div class="back-to-portfolio">
+    <a href="../../index.html">← Back to Portfolio</a>
+</div>
+
+<div class="card">
+    <h1>Vincent D. Bermel</h1>
+    <p id="modeText">Light and Dark Mode Toggle example</p>
+    
+    <div class="profile-image">
+        <img src="../../ava.png.svg" alt="Vincent D. Bermel">
+    </div>
+    
+    <button onclick="toggleText()">Toggle Text</button>
+</div>
+
+<script>
+function toggleText() {
+    let p = document.getElementById("modeText");
+    
+    if (p.innerText === "Toggle Text") {
+        p.innerText = "Hello! Welcome to my project!";
+    } else {
+        p.innerText = "Toggle Text";
+    }
+}
+</script>
+</body>
+</html>
+

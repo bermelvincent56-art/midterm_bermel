@@ -1,0 +1,136 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: wheat;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 20px;
+    gap: 2rem;
+}
+
+.card{
+    width: 250px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgb(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#btn-aboutme{
+    background-color: chocolate;
+    color: wheat;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+#btn-aboutme:hover{
+    background-color: coral;
+}
+
+.hide{
+    display: none;
+}
+
+#info{
+    margin-top: 15px;
+    color: black;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Portfolio integration styles */
+.back-to-portfolio {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.back-to-portfolio a {
+    text-decoration: none;
+    color: chocolate;
+    font-weight: bold;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.back-to-portfolio a:hover {
+    background: chocolate;
+    color: white;
+    transform: translateX(-5px);
+}
+
+.project-info {
+    max-width: 600px;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.project-info h2 {
+    color: chocolate;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.project-info p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.project-info ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.project-info li {
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .back-to-portfolio {
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    .project-info {
+        padding: 20px;
+    }
+}
