@@ -36,9 +36,6 @@
                     <a href="#experience" class="nav-link">Experience</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#games" class="nav-link">Games</a>
-                </li>
-                <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
@@ -320,84 +317,42 @@
         </div>
     </section>
 
-    <!-- Interactive Games Section -->
-    <section id="games" class="games">
+    <!-- Additional Projects Section -->
+    <section id="additional-projects" class="additional-projects">
         <div class="container">
-            <h2 class="section-title">Fun Interactive Games</h2>
-            <p class="section-subtitle">Take a break and enjoy some mini-games!</p>
+            <h2 class="section-title">More Projects</h2>
+            <p class="section-subtitle">Additional projects and experiments I've worked on</p>
             
-            <div class="games-grid">
-                <!-- Color Memory Game -->
-                <div class="game-card">
-                    <h3>🎨 Color Memory</h3>
-                    <p>Test your memory with this color sequence game!</p>
-                    <div class="color-game">
-                        <div class="color-buttons">
-                            <button class="color-btn" data-color="red" style="background: #ff4757;"></button>
-                            <button class="color-btn" data-color="blue" style="background: #3742fa;"></button>
-                            <button class="color-btn" data-color="green" style="background: #2ed573;"></button>
-                            <button class="color-btn" data-color="yellow" style="background: #ffa502;"></button>
+            <div class="projects-list">
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Traffic Management System</h3>
+                        <p>A system that manages traffic flow and monitors traffic violations.</p>
+                        <div class="project-tags">
+                            <span class="tag">C#</span>
+                            <span class="tag">MySQL</span>
                         </div>
-                        <div class="game-info">
-                            <p>Score: <span id="color-score">0</span></p>
-                            <p>Level: <span id="color-level">1</span></p>
-                        </div>
-                        <button id="start-color-game" class="game-start-btn">Start Game</button>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/tms-proj/" class="project-link">View Project</a>
                     </div>
                 </div>
 
-                <!-- Number Guessing Game -->
-                <div class="game-card">
-                    <h3>🎯 Number Guessing</h3>
-                    <p>Can you guess the number I'm thinking of?</p>
-                    <div class="number-game">
-                        <div class="game-input">
-                            <input type="number" id="guess-input" placeholder="Enter 1-100" min="1" max="100">
-                            <button id="guess-btn">Guess!</button>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Classroom Availability Monitoring System</h3>
+                        <p>A system that monitors the availability of classrooms and schedules classes.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
                         </div>
-                        <div class="game-feedback">
-                            <p id="guess-feedback">I'm thinking of a number between 1-100...</p>
-                            <p>Attempts: <span id="attempts">0</span></p>
-                        </div>
-                        <button id="new-number-game" class="game-start-btn">New Game</button>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/cams-proj/" class="project-link">View Project</a>  
                     </div>
                 </div>
 
-                <!-- Click Speed Test -->
-                <div class="game-card">
-                    <h3>⚡ Click Speed Test</h3>
-                    <p>How fast can you click? Test your reflexes!</p>
-                    <div class="speed-game">
-                        <div class="click-area" id="click-area">
-                            <p>Click here as fast as you can!</p>
-                            <p>Time: <span id="timer">10</span>s</p>
-                            <p>Clicks: <span id="click-count">0</span></p>
-                        </div>
-                        <button id="start-speed-test" class="game-start-btn">Start Test</button>
-                        <p id="speed-result"></p>
-                    </div>
-                </div>
-
-                <!-- Rock Paper Scissors -->
-                <div class="game-card">
-                    <h3>✂️ Rock Paper Scissors</h3>
-                    <p>Classic game against the computer!</p>
-                    <div class="rps-game">
-                        <div class="rps-choices">
-                            <button class="rps-btn" data-choice="rock">🪨</button>
-                            <button class="rps-btn" data-choice="paper">📄</button>
-                            <button class="rps-btn" data-choice="scissors">✂️</button>
-                        </div>
-                        <div class="rps-result">
-                            <p>Your choice: <span id="player-choice">-</span></p>
-                            <p>Computer: <span id="computer-choice">-</span></p>
-                            <p id="rps-winner"></p>
-                        </div>
-                        <div class="rps-score">
-                            <p>You: <span id="player-score">0</span> | Computer: <span id="computer-score">0</span></p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
