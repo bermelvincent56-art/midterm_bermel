@@ -421,6 +421,20 @@ function initializeInteractiveFeatures() {
             document.body.classList.add(theme + '-theme');
         }
         
+        // Update active theme option
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+            if (option.getAttribute('data-theme') === theme) {
+                option.classList.add('active');
+            }
+        });
+        
+        // Update current theme display
+        const themeDisplay = document.querySelector('.current-theme-display');
+        if (themeDisplay) {
+            themeDisplay.textContent = `Current: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+        }
+        
         // Save theme preference
         localStorage.setItem('portfolio-theme', theme);
         
@@ -474,14 +488,12 @@ function initializeInteractiveFeatures() {
         });
     });
 
-    // Floating Action Buttons
-    const surpriseBtn = document.getElementById('surprise-btn');
-    const confettiBtn = document.getElementById('confetti-btn');
-    const musicBtn = document.getElementById('music-btn');
+    // Floating Action Buttons - New Modal Functions
+    const calculatorBtn = document.getElementById('calculator-btn');
+    const gameBtn = document.getElementById('game-btn');
+    const notesBtn = document.getElementById('notes-btn');
 
-    surpriseBtn.addEventListener('click', triggerSurprise);
-    confettiBtn.addEventListener('click', triggerConfetti);
-    musicBtn.addEventListener('click', toggleMusic);
+    // Modal functionality will be handled by onclick attributes in HTML
 
     function triggerSurprise() {
         const surprises = [
@@ -663,9 +675,313 @@ function initializeInteractiveFeatures() {
 }
 
 // Global function for modal close
-function closeModal() {
-    document.getElementById('konami-modal').classList.add('hidden');
+function closeModal(modalId) {
+    if (modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    } else {
+        document.getElementById('konami-modal').classList.add('hidden');
+    }
 }
+
+// Modal Functions
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+    if (modalId === 'gameModal') {
+        initGame();
+    }
+    if (modalId === 'notesModal') {
+        loadNotes();
+    }
+}
+
+// Calculator Functions
+let calcDisplay = '';
+
+function appendToCalc(value) {
+    calcDisplay += value;
+    document.getElementById('calcDisplay').value = calcDisplay;
+}
+
+function clearCalc() {
+    calcDisplay = '';
+    document.getElementById('calcDisplay').value = '';
+}
+
+function deleteLast() {
+    calcDisplay = calcDisplay.slice(0, -1);
+    document.getElementById('calcDisplay').value = calcDisplay;
+}
+
+function calculateResult() {
+    try {
+        const result = eval(calcDisplay.replace('×', '*'));
+        document.getElementById('calcDisplay').value = result;
+        calcDisplay = result.toString();
+    } catch (error) {
+        document.getElementById('calcDisplay').value = 'Error';
+        calcDisplay = '';
+    }
+}
+
+// Memory Game Functions
+let gameBoard = [];
+let flippedCards = [];
+let moves = 0;
+let matches = 0;
+let gameTimer = 0;
+let timerInterval;
+
+const gameSymbols = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎵'];
+
+function initGame() {
+    resetGameState();
+    createGameBoard();
+    startTimer();
+}
+
+function resetGameState() {
+    gameBoard = [];
+    flippedCards = [];
+    moves = 0;
+    matches = 0;
+    gameTimer = 0;
+    updateStats();
+    if (timerInterval) clearInterval(timerInterval);
+}
+
+function createGameBoard() {
+    const symbols = [...gameSymbols, ...gameSymbols];
+    symbols.sort(() => Math.random() - 0.5);
+    
+    const boardElement = document.getElementById('gameBoard');
+    boardElement.innerHTML = '';
+    
+    symbols.forEach((symbol, index) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.symbol = symbol;
+        card.dataset.index = index;
+        card.innerHTML = '?';
+        card.addEventListener('click', flipCard);
+        boardElement.appendChild(card);
+        gameBoard.push(card);
+    });
+}
+
+function flipCard(e) {
+    const card = e.target;
+    
+    if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length === 2) {
+        return;
+    }
+    
+    card.classList.add('flipped');
+    card.innerHTML = card.dataset.symbol;
+    flippedCards.push(card);
+    
+    if (flippedCards.length === 2) {
+        moves++;
+        updateStats();
+        setTimeout(checkMatch, 1000);
+    }
+}
+
+function checkMatch() {
+    const [card1, card2] = flippedCards;
+    
+    if (card1.dataset.symbol === card2.dataset.symbol) {
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matches++;
+        
+        if (matches === 8) {
+            clearInterval(timerInterval);
+            setTimeout(() => alert(`Congratulations! You won in ${moves} moves and ${formatTime(gameTimer)}!`), 500);
+        }
+    } else {
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        card1.innerHTML = '?';
+        card2.innerHTML = '?';
+    }
+    
+    flippedCards = [];
+    updateStats();
+}
+
+function resetGame() {
+    resetGameState();
+    createGameBoard();
+    startTimer();
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        gameTimer++;
+        updateStats();
+    }, 1000);
+}
+
+function updateStats() {
+    document.getElementById('moves').textContent = moves;
+    document.getElementById('matches').textContent = matches;
+    document.getElementById('timer').textContent = formatTime(gameTimer);
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Notes Functions
+function saveNotes() {
+    const notes = document.getElementById('notesArea').value;
+    localStorage.setItem('portfolioNotes', notes);
+    alert('Notes saved successfully!');
+}
+
+function loadNotes() {
+    const savedNotes = localStorage.getItem('portfolioNotes') || '';
+    document.getElementById('notesArea').value = savedNotes;
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// Enhanced Theme Switcher Functions
+let autoThemeEnabled = false;
+let autoThemeInterval;
+let previewTheme = null;
+
+function randomTheme() {
+    const themes = ['default', 'dark', 'neon', 'ocean', 'sunset', 'forest', 'royal', 'cyberpunk'];
+    const currentTheme = localStorage.getItem('portfolio-theme') || 'default';
+    let randomTheme;
+    
+    do {
+        randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    } while (randomTheme === currentTheme);
+    
+    switchTheme(randomTheme);
+    showNotification(`🎲 Random theme: ${randomTheme}!`);
+}
+
+function toggleAutoTheme() {
+    const autoBtn = document.querySelector('.auto-theme-btn');
+    
+    if (!autoThemeEnabled) {
+        autoThemeEnabled = true;
+        autoBtn.classList.add('active');
+        autoBtn.innerHTML = '<i class="fas fa-stop"></i> Stop Auto';
+        
+        autoThemeInterval = setInterval(() => {
+            randomTheme();
+        }, 10000); // Change theme every 10 seconds
+        
+        showNotification('🔄 Auto theme switching enabled!');
+    } else {
+        autoThemeEnabled = false;
+        autoBtn.classList.remove('active');
+        autoBtn.innerHTML = '<i class="fas fa-clock"></i> Auto Switch';
+        
+        if (autoThemeInterval) {
+            clearInterval(autoThemeInterval);
+        }
+        
+        showNotification('⏹️ Auto theme switching disabled');
+    }
+}
+
+function previewThemeOnHover(theme) {
+    if (!autoThemeEnabled) {
+        previewTheme = theme;
+        document.body.style.filter = 'brightness(0.8)';
+        setTimeout(() => {
+            if (previewTheme === theme) {
+                switchTheme(theme);
+                document.body.style.filter = '';
+            }
+        }, 1000);
+    }
+}
+
+function applyPreviewTheme() {
+    if (previewTheme) {
+        switchTheme(previewTheme);
+        closeThemePreview();
+    }
+}
+
+function closeThemePreview() {
+    document.getElementById('theme-preview-overlay').classList.add('hidden');
+    document.body.style.filter = '';
+    previewTheme = null;
+}
+
+// Add theme option hover effects
+document.addEventListener('DOMContentLoaded', function() {
+    const themeOptions = document.querySelectorAll('.theme-option');
+    
+    themeOptions.forEach(option => {
+        option.addEventListener('mouseenter', function() {
+            const theme = this.getAttribute('data-theme');
+            const preview = this.getAttribute('data-preview');
+            
+            // Add subtle preview effect
+            this.style.transform = 'translateY(-5px) scale(1.05)';
+            
+            // Show theme colors in a tooltip-like effect
+            const tooltip = document.createElement('div');
+            tooltip.className = 'theme-tooltip';
+            tooltip.style.cssText = `
+                position: absolute;
+                top: -40px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${preview};
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                color: white;
+                font-size: 0.8rem;
+                white-space: nowrap;
+                z-index: 1000;
+                pointer-events: none;
+            `;
+            tooltip.textContent = `Preview ${theme}`;
+            this.appendChild(tooltip);
+        });
+        
+        option.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            const tooltip = this.querySelector('.theme-tooltip');
+            if (tooltip) {
+                tooltip.remove();
+            }
+        });
+    });
+    
+    // Initialize current theme display
+    const currentTheme = localStorage.getItem('portfolio-theme') || 'default';
+    const themeDisplay = document.querySelector('.current-theme-display');
+    if (themeDisplay) {
+        themeDisplay.textContent = `Current: ${currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}`;
+    }
+    
+    // Mark current theme as active
+    document.querySelectorAll('.theme-option').forEach(option => {
+        if (option.getAttribute('data-theme') === currentTheme) {
+            option.classList.add('active');
+        }
+    });
+});
 
 // Add CSS for animations
 const style = document.createElement('style');

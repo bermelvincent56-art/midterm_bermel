@@ -151,6 +151,228 @@
             color: #666;
             font-size: 0.9rem;
         }
+        
+        /* Right Side Action Panel */
+        .action-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 1rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .action-btn.calculator {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+        
+        .action-btn.game {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+        }
+        
+        .action-btn.notes {
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        /* Calculator Styles */
+        .calculator {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .calc-display {
+            width: 100%;
+            height: 60px;
+            font-size: 2rem;
+            text-align: right;
+            padding: 0 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calc-btn {
+            height: 60px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calc-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .calc-btn.number {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .calc-btn.operator {
+            background: #667eea;
+            color: white;
+        }
+        
+        .calc-btn.equals {
+            background: #28a745;
+            color: white;
+        }
+        
+        .calc-btn.clear {
+            background: #dc3545;
+            color: white;
+        }
+        
+        /* Memory Game Styles */
+        .memory-game {
+            text-align: center;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+        
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .memory-card.flipped {
+            background: white;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+        
+        .memory-card.matched {
+            background: #28a745;
+            cursor: default;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .reset-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        
+        /* Notes Styles */
+        .notes-area {
+            width: 100%;
+            height: 300px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        .save-notes-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body class="project-page">
@@ -201,7 +423,7 @@
         <div class="container">
             <div class="details-content">
                 <h2>About This Project</h2>
-                <p>My Classroom Availability Monitoring System (CAMS) is a web-based platform that allows administrators, faculty, and students to efficiently manage and view classroom usage within the school. It provides real-time updates on which classrooms are available, occupied, or under maintenance. Administrators can manage schedules, classrooms, and users; faculty can view their assigned schedules and request reservations; while students can log in to check room availability without making changes. CAMS improves transparency, prevents scheduling conflicts, and ensures better utilization of school facilities.</p>
+                <p>The Classroom Availability Monitoring System (CAMS) is a web-based platform that allows administrators, faculty, and students to efficiently manage and view classroom usage within the school. It provides real-time updates on which classrooms are available, occupied, or under maintenance. Administrators can manage schedules, classrooms, and users; faculty can view their assigned schedules and request reservations; while students can log in to check room availability without making changes. CAMS improves transparency, prevents scheduling conflicts, and ensures better utilization of school facilities.</p>
                 
                 <div class="features-list">
                     <div class="feature-item">
@@ -229,6 +451,85 @@
         </div>
     </section>
 
+    <!-- Right Side Action Panel -->
+    <div class="action-panel">
+        <button class="action-btn calculator" onclick="openModal('calculatorModal')" title="Calculator">
+            <i class="fas fa-calculator"></i>
+        </button>
+        <button class="action-btn game" onclick="openModal('gameModal')" title="Memory Game">
+            <i class="fas fa-gamepad"></i>
+        </button>
+        <button class="action-btn notes" onclick="openModal('notesModal')" title="Quick Notes">
+            <i class="fas fa-sticky-note"></i>
+        </button>
+        <button class="action-btn" onclick="scrollToTop()" title="Scroll to Top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Calculator Modal -->
+    <div id="calculatorModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('calculatorModal')">&times;</span>
+            <h2>Calculator</h2>
+            <div class="calculator">
+                <input type="text" class="calc-display" id="calcDisplay" readonly>
+                <div class="calc-buttons">
+                    <button class="calc-btn clear" onclick="clearCalc()">C</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('/')">/</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
+                    <button class="calc-btn operator" onclick="deleteLast()">⌫</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalc('7')">7</button>
+                    <button class="calc-btn number" onclick="appendToCalc('8')">8</button>
+                    <button class="calc-btn number" onclick="appendToCalc('9')">9</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalc('4')">4</button>
+                    <button class="calc-btn number" onclick="appendToCalc('5')">5</button>
+                    <button class="calc-btn number" onclick="appendToCalc('6')">6</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalc('1')">1</button>
+                    <button class="calc-btn number" onclick="appendToCalc('2')">2</button>
+                    <button class="calc-btn number" onclick="appendToCalc('3')">3</button>
+                    <button class="calc-btn equals" onclick="calculateResult()" rowspan="2">=</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalc('0')" colspan="2">0</button>
+                    <button class="calc-btn number" onclick="appendToCalc('.')">.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Game Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('gameModal')">&times;</span>
+            <h2>Memory Game</h2>
+            <div class="memory-game">
+                <div class="game-stats">
+                    <div>Moves: <span id="moves">0</span></div>
+                    <div>Matches: <span id="matches">0</span>/8</div>
+                    <div>Time: <span id="timer">00:00</span></div>
+                </div>
+                <div class="game-board" id="gameBoard"></div>
+                <button class="reset-btn" onclick="resetGame()">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
+    <div id="notesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('notesModal')">&times;</span>
+            <h2>Quick Notes</h2>
+            <textarea class="notes-area" id="notesArea" placeholder="Write your notes here..."></textarea>
+            <button class="save-notes-btn" onclick="saveNotes()">Save Notes</button>
+            <p><small>Notes are saved locally in your browser.</small></p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -241,5 +542,187 @@
             </div>
         </div>
     </footer>
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            if (modalId === 'gameModal') {
+                initGame();
+            }
+            if (modalId === 'notesModal') {
+                loadNotes();
+            }
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Calculator Functions
+        let calcDisplay = '';
+        
+        function appendToCalc(value) {
+            calcDisplay += value;
+            document.getElementById('calcDisplay').value = calcDisplay;
+        }
+        
+        function clearCalc() {
+            calcDisplay = '';
+            document.getElementById('calcDisplay').value = '';
+        }
+        
+        function deleteLast() {
+            calcDisplay = calcDisplay.slice(0, -1);
+            document.getElementById('calcDisplay').value = calcDisplay;
+        }
+        
+        function calculateResult() {
+            try {
+                const result = eval(calcDisplay.replace('×', '*'));
+                document.getElementById('calcDisplay').value = result;
+                calcDisplay = result.toString();
+            } catch (error) {
+                document.getElementById('calcDisplay').value = 'Error';
+                calcDisplay = '';
+            }
+        }
+        
+        // Memory Game Functions
+        let gameBoard = [];
+        let flippedCards = [];
+        let moves = 0;
+        let matches = 0;
+        let gameTimer = 0;
+        let timerInterval;
+        
+        const gameSymbols = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎵'];
+        
+        function initGame() {
+            resetGameState();
+            createGameBoard();
+            startTimer();
+        }
+        
+        function resetGameState() {
+            gameBoard = [];
+            flippedCards = [];
+            moves = 0;
+            matches = 0;
+            gameTimer = 0;
+            updateStats();
+            if (timerInterval) clearInterval(timerInterval);
+        }
+        
+        function createGameBoard() {
+            const symbols = [...gameSymbols, ...gameSymbols];
+            symbols.sort(() => Math.random() - 0.5);
+            
+            const boardElement = document.getElementById('gameBoard');
+            boardElement.innerHTML = '';
+            
+            symbols.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                card.innerHTML = '?';
+                card.addEventListener('click', flipCard);
+                boardElement.appendChild(card);
+                gameBoard.push(card);
+            });
+        }
+        
+        function flipCard(e) {
+            const card = e.target;
+            
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length === 2) {
+                return;
+            }
+            
+            card.classList.add('flipped');
+            card.innerHTML = card.dataset.symbol;
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                moves++;
+                updateStats();
+                setTimeout(checkMatch, 1000);
+            }
+        }
+        
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matches++;
+                
+                if (matches === 8) {
+                    clearInterval(timerInterval);
+                    setTimeout(() => alert(`Congratulations! You won in ${moves} moves and ${formatTime(gameTimer)}!`), 500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.innerHTML = '?';
+                card2.innerHTML = '?';
+            }
+            
+            flippedCards = [];
+            updateStats();
+        }
+        
+        function resetGame() {
+            resetGameState();
+            createGameBoard();
+            startTimer();
+        }
+        
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                gameTimer++;
+                updateStats();
+            }, 1000);
+        }
+        
+        function updateStats() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('matches').textContent = matches;
+            document.getElementById('timer').textContent = formatTime(gameTimer);
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Notes Functions
+        function saveNotes() {
+            const notes = document.getElementById('notesArea').value;
+            localStorage.setItem('camsNotes', notes);
+            alert('Notes saved successfully!');
+        }
+        
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('camsNotes') || '';
+            document.getElementById('notesArea').value = savedNotes;
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
